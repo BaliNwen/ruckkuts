@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RuckKuts Mobile Barbershop</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  <style>
+    body, h1, h2, h3, h4, h5 { font-family: "Poppins", sans-serif; }
+    body { font-size: 16px; margin:0; }
+
+    /* Round all images */
+    img { border-radius: 12px; }
+
+    /* Sidebar styling */
+    .w3-sidebar { background-color: #FF0000; }
+    .w3-sidebar .w3-bar-item { color: #FFFFFF !important; }
+    .w3-sidebar .w3-bar-item:hover { background-color: #CC0000 !important; }
+    .w3-sidebar .close-btn { position: absolute; top: 8px; right: 8px; font-size:24px; z-index: 2; }
+
+    /* Push logo down to avoid overlap with close button */
+    .w3-sidebar .logo { margin-top: 40px; }
+
+    /* Global slogan color */
+    .slogan { color: #0035AB; }
+
+    /* Card styling */
+    .w3-card-4 { border-radius: 12px; }
+    .about-card { background: #FFFFFF; padding: 24px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+    /* Input and textarea styling */
+    .w3-input, .w3-border { border-radius: 8px; }
+
+    /* Button styling */
+    .w3-button { border-radius: 8px; }
+    .w3-button.w3-red { background-color: #FF0000 !important; color: #FFFFFF !important; }
+    .w3-button.w3-red:hover { background-color: #CC0000 !important; }
+
+    /* Active tab styling */
+    .w3-bar .w3-bar-item.w3-red { background-color: #FF0000 !important; color: #FFFFFF !important; }
+
+    .service-icon { font-size: 28px; margin-right: 12px; }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      .w3-main { margin-left: 0 !important; }
+      .w3-sidebar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Mobile header -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-padding">
+  <span style="font-size:30px;cursor:pointer" onclick="w3_open()">☰</span>
+  <span style="margin-left:16px; font-size:20px;">RuckKuts</span>
+</header>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-top w3-large w3-padding w3-animate-left" id="mySidebar" style="z-index:3;width:260px;">
+  <a href="javascript:void(0)" class="w3-button close-btn w3-hide-large" onclick="w3_close()">&times;</a>
+  <div class="w3-container w3-center" style="margin-top:20px;">
+    <img src="ruckkuts logo.jpeg" alt="Ruck Kuts Logo" class="logo" style="max-width:80%;">
+    <h3>RuckKuts</h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#home" class="w3-bar-item w3-button w3-hover-white">Home</a>
+    <a href="#showcase" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
+    <a href="#services" class="w3-bar-item w3-button w3-hover-white">Services</a>
+    <a href="#about" class="w3-bar-item w3-button w3-hover-white">About</a>
+    <a href="#pricing" class="w3-bar-item w3-button w3-hover-white">Choose Cut</a>
+    <a href="#contact" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+  </div>
+</nav>
+
+<!-- Overlay for mobile -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" id="myOverlay"></div>
+
+<!-- Page content -->
+<div class="w3-main" style="margin-left:260px">
+
+  <!-- Hero -->
+  <header class="w3-container w3-center w3-padding-64" id="home">
+    <h1 class="w3-jumbo"><b>RuckKuts</b></h1>
+    <p class="w3-large slogan"><i>Mobile Barbershop, Fresh Cuts Delivered</i></p>
+  </header>
+
+  <!-- Showcase -->
+  <div class="w3-row-padding w3-padding-16" id="showcase">
+    <div class="w3-half">
+      <img src="cut 1.jpeg" style="width:100%" onclick="onClick(this)" alt="Fresh fade">
+      <img src="cut 2.jpeg" style="width:100%" onclick="onClick(this)" alt="Sharp line-up">
+      <img src="cut 3.jpeg" style="width:100%" onclick="onClick(this)" alt="Classic waves">
+    </div>
+    <div class="w3-half">
+      <img src="cut 4.jpeg" style="width:100%" onclick="onClick(this)" alt="Clean taper">
+      <img src="cut 5.jpeg" style="width:100%" onclick="onClick(this)" alt="Precision beard trim">
+      <img src="cut 6.jpeg" style="width:100%" onclick="onClick(this)" alt="Modern style">
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
+    <span class="w3-button w3-xlarge w3-display-topright">×</span>
+    <div class="w3-modal-content w3-animate-zoom w3-center w3-padding-64">
+      <img id="img01" class="w3-image">
+      <p id="caption" class="w3-large"></p>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section class="w3-container w3-padding-64" id="services">
+    <h2 class="w3-xxxlarge w3-text-red"><b>What We Offer</b></h2>
+    <div class="w3-bar w3-margin-top">
+      <button class="w3-bar-item w3-button w3-red" onclick="openTab(event,'Regular')">Regular Cuts</button>
+      <button class="w3-bar-item w3-button" onclick="openTab(event,'LastMinute')">Last-Minute Cuts</button>
+      <button class="w3-bar-item w3-button" onclick="openTab(event,'Commitment')">Our Commitment</button>
+    </div>
+    <div id="Regular" class="w3-container w3-padding-16 service-tab">
+      <h3><i class="service-icon">💈</i>Regular Haircuts</h3>
+      <ul><li>Classic cuts, fades & waves.</li><li>Personal consultation & styling.</li></ul>
+    </div>
+    <div id="LastMinute" class="w3-container w3-padding-16 service-tab" style="display:none">
+      <h3><i class="service-icon">⏱️</i>Last-Minute Cuts</h3>
+      <ul><li>On-demand bookings within hours.</li><li>Same-day service.</li></ul>
+    </div>
+    <div id="Commitment" class="w3-container w3-padding-16 service-tab" style="display:none">
+      <h3><i class="service-icon">🤝</i>Our Commitment to You</h3>
+      <ul><li>Your comfort & satisfaction first.</li><li>Remembered preferences, every time.</li></ul>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="w3-container w3-padding-64 w3-light-grey" id="about">
+    <h2 class="w3-xxxlarge w3-text-blue"><b>About Me</b></h2>
+    <div class="w3-row-padding about-card">
+      <div class="w3-col m4 w3-center">
+        <img src="main ant abt 1.jpg" alt="Founder" style="width:100%;border-radius:8px;">
+      </div>
+      <div class="w3-col m8">
+        <p>I’m a passionate Master Barber proudly serving the greater Cincinnati, Ohio area. My journey began over three years ago watching my cousin Keno work his magic in his Cleveland shop. I’ll never forget how my dad’s “chili bowl” haircut in middle school made me the target of teasing—so I set out to upgrade my image and my hair care routine.</p>
+        <p>By 10th grade, I mastered the art of waves and noticed both my confidence—and everyone else’s perception—transform. After high school, I perfected my craft under Cousin Keno’s guidance and discovered my calling. At Ohio University in 2005, I taught myself cutting techniques and offered free trims to friends. “Ruck Kuts” quickly became the campus go-to, and I charged just $5 per cut.</p>
+        <p>Today, I’m a proud 2025 graduate of Forest Park Barber Academy and a licensed barber through the Ohio State Board of Barber & Cosmetology. Every cut I give builds on years of practice and my love for helping you look and feel your best. Whether you’re after classic waves, a modern fade, or a clean, sharp style, I’m here to help you step out with confidence.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Choose Cut -->
+  <section class="w3-container w3-padding-64" id="pricing">
+    <h2 class="w3-xxxlarge w3-text-red"><b>Choose Your Cut</b></h2>
+    <div class="w3-row-padding">
+      <div class="w3-half w3-margin-bottom w3-card-4 w3-light-grey w3-center w3-padding-32">
+        <h3>Regular Haircut</h3><p>Precision styling & personal consultation</p>
+        <button onclick="document.getElementById('contact').scrollIntoView();" class="w3-button w3-red w3-padding-large w3-margin-top">Select</button>
+      </div>
+      <div class="w3-half w3-card-4 w3-light-grey w3-center w3-padding-32">
+        <h3>Last-Minute Haircut</h3><p>On-demand booking</p>
+        <button onclick="document.getElementById('contact').scrollIntoView();" class="w3-button w3-red w3-padding-large w3-margin-top">Select</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="w3-container w3-padding-64 w3-light-grey" id="contact">
+    <h2 class="w3-xxxlarge w3-text-red"><b>Contact & Booking</b></h2>
+    <p>Fill out your details below and specify your chosen service. I’ll be in touch to confirm your appointment!</p>
+    <form action="mailto:ruck.kuts@gmail.com?subject=New%20Booking%20Request" method="POST" enctype="text/plain">
+      <p><input class="w3-input w3-border" type="text" placeholder="Name" name="name" required></p>
+      <p><input class="w3-input w3-border" type="email" placeholder="Email" name="email" required></p>
+      <p><input class="w3-input w3-border" type="tel" placeholder="Phone" name="phone"></p>
+      <p><input class="w3-input w3-border" type="text" placeholder="Location" name="location" required></p>
+      <p><input class="w3-input w3-border" list="haircut-options" name="haircut_type" placeholder="Select or type your haircut type" required>
+      </p>
+      <p><input class="w3-input w3-border" type="number" placeholder="Preferred Monthly Price ($)" name="monthly_price"></p>
+      <p><textarea class="w3-input w3-border" placeholder="Preferred Service & Message" name="message"></textarea></p>
+      <p><button class="w3-button w3-red w3-block w3-padding-large" type="submit">Send Message</button></p>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="w3-container w3-dark-grey w3-padding-32">
+    <p class="w3-center">&copy; 2025 Ruck Kuts. All rights reserved.</p>
+  </footer>
+
+</div>
+
+<script>
+  // Open sidebar
+  function w3_open() {
+    document.getElementById('mySidebar').style.display = 'block';
+    document.getElementById('myOverlay').style.display = 'block';
+  }
+  // Close sidebar
+  function w3_close() {
+    document.getElementById('mySidebar').style.display = 'none';
+    document.getElementById('myOverlay').style.display = 'none';
+  }
+  // Modal gallery
+  function onClick(el) {
+    document.getElementById('img01').src = el.src;
+    document.getElementById('caption').innerHTML = el.alt;
+    document.getElementById('modal01').style.display = 'block';
+  }
+  // Service tabs
+  function openTab(evt, tabName) {
+    var i, x, tablinks;
+    x = document.getElementsByClassName('service-tab');
+    for (i = 0; i < x.length; i++) { x[i].style.display = 'none'; }
+    tablinks = document.getElementsByClassName('w3-bar-item');
+    for (i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(' w3-red', ''); }
+    document.getElementById(tabName).style.display = 'block';
+    evt.currentTarget.className += ' w3-red';
+  }
+</script>
+
+</body>
+</html>
